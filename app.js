@@ -28,6 +28,8 @@ function getData(e){
 
             }
             else{
+                ui.addSearchedUserToUI(username);
+                Storage.addSearchedUserToStorage(username);
                 ui.showUserInfo(response.user);
                 ui.showRepoInfo(response.repo);
             }
@@ -42,7 +44,20 @@ function getData(e){
 }
 function  clearAllSearched(){
     // Tüm alanları temizleme
+    if(confirm("Emin misiniz ?")){
+        Storage.clearAllSearchedUsersFromStorage();
+        ui.clearAllSearchedFromUI();
+    
+    }
+
+
 }
 function getAllSearch(){
     //Arananları storageden alıp UI a ekleme
+    let users =Storage.getSearchedUsersFromStorage();
+    let result="";
+    users.forEach(user => {
+        result+=`<li class="list-group-item">${user}</li>`
+    });
+    lastUsers.innerHTML=result;
 }
